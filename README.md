@@ -14,7 +14,7 @@ Another dataset may contain purchase history (ID, Items Bought, Amount Spent).
 By merging these datasets, we can analyze customer behavior.
 
 
-import pandas as pd
+```import pandas as pd
 df1= pd.read_csv('/content/drive/MyDrive/winequality-red.csv', delimiter=';')
 df2= pd.read_csv('/content/drive/MyDrive/winequality-white.csv',delimiter=';')
 print("red wine data: ")
@@ -28,4 +28,4 @@ merged= pd.concat([df1,df2],ignore_index= True)
 
 print("combined: ")
 print(merged.head())
-
+```
