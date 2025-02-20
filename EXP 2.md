@@ -98,7 +98,7 @@ Step 6: Handling Outliers using IQR method
 <br>
     Sub-steps in this Step are-
     <br>
-    1.Stripping Extra Spaces from Column Names:Removes extra spaces to avoid referencing issues.
+    1. Stripping Extra Spaces from Column Names:Removes extra spaces to avoid referencing issues.
     <br>
 ```
 df.columns = df.columns.str.strip()
@@ -106,13 +106,12 @@ print("Column Names:", df.columns)
 
 ```
 <br>
-    2.Calculating Inter-Quartile Range(IQR)
+    2. Calculating Inter-Quartile Range(IQR)
     <br>
 
       q1 = df['RATING'].quantile(0.25)
       q3 = df['RATING'].quantile(0.75)
       iqr = q3 - q1
-      ```
 <br>
 Where,
 <br>
@@ -123,17 +122,18 @@ Q3 (75th percentile): The value below which 75% of the data falls.
 IQR: The range between Q1 and Q3, representing the middle 50% of the data.
    <br>
    <br>
-    3.Defining the Outlier Boundaries:The 1.5 × IQR rule defines outliers as values lying
+    3. Defining the Outlier Boundaries:The 1.5 × IQR rule defines outliers as values lying
     below Q1 - 1.5 × IQR or above Q3 + 1.5 × IQR.
     
      lower_bound = q1 - 1.5 * iqr
      upper_bound = q3 + 1.5 * iqr
 
   <br>
-    -Filtering Out Outliers:Removes outliers and saves the cleaned dataset.
+    4. Filtering Out Outliers:Removes outliers and saves the cleaned dataset.
     <br>
     
     
     df_clean = df[(df['RATING'] >=lower_bound) & (df['RATING'] <= upper_bound)]
+    
     df_clean.to_csv("/content/drive/MyDrive/cleaned_movies.csv", index=False)
     print(" Outliers removed! Cleaned data saved as 'cleaned_movies.csv'.")
