@@ -23,6 +23,115 @@ Data Cleaning: Techniques such as removing duplicates, handling missing values, 
 Step 1:  Import necessary library
 <br>
 Pandas is a powerful Python library for data manipulation, analysis, and processing using DataFrames and Series.
-```python 
+<br>
+
+```
 import pandas as pd
 ```
+
+<br>
+Step 2: Load the Datasets
+- Here,I,ve used the wine datasets
+<br>
+
+```
+df1= pd.read_csv('/content/drive/MyDrive/winequality-red.csv', delimiter=';')
+df2= pd.read_csv('/content/drive/MyDrive/winequality-white.csv',delimiter=';')
+```
+<br>
+Step 3: Check for Null values/ Missing values
+<br>
+We can inspect for null values in 2 ways i.e. 
+- Isnull() 
+<br>
+
+```
+print("checking for null values(is null)")
+df1.isnull()
+
+```
+<br>
+- Notnull() functions
+<br>
+
+```
+print("checking for null values(not null)")
+df1.notnull()
+```
+Step 4: Handling NAN values
+<br>
+-NAN stands for Not A Numeric Value i.e this will check for any value which is not a number/ a numeric value. 
+<br>
+- There are two popular functions to handle NAN values i.e.,
+   <br>
+   -dropna():Removes missing (NaN) values from a DataFrame or Series.
+  <br>
+  ```
+    df.dropna(inplace=True)
+  ```
+  -fillna():Replaces missing values with a specified value.
+  ```
+  df.fillna(130,inplace=True)
+  ```
+<br>
+Step 5: Check for duplicated values in the dataset
+<br>
+```
+print("checking for duplicated values: ")
+df1.duplicated()
+```
+<br>
+We can either just check for the duplicates or even drop them. 
+<br>
+To drop duplicates, we use the drop_duplicates() function
+<br>
+
+```
+print("after dropping duplicated values: ")
+df.drop_duplicates()
+```
+Step 6: Handling Outliers using IQR method
+<br>
+-The Interquartile Range (IQR) method is a statistical approach used to identify and remove extreme values from a dataset.
+<br>
+    Sub-steps in this Step are-
+    <br>
+    -Stripping Extra Spaces from Column Names:Removes extra spaces to avoid referencing issues.
+    <br>
+```
+df.columns = df.columns.str.strip()
+print("Column Names:", df.columns)
+
+```
+<br>
+    -Calculating Inter-Quartile Range(IQR)
+    <br>
+
+      q1 = df['RATING'].quantile(0.25)
+      q3 = df['RATING'].quantile(0.75)
+      iqr = q3 - q1
+      ```
+      
+<br>
+Where,
+<br>
+Q1 (25th percentile): The value below which 25% of the data falls.
+<br>
+Q3 (75th percentile): The value below which 75% of the data falls.
+<br>
+IQR: The range between Q1 and Q3, representing the middle 50% of the data.
+   <br>
+    - Defining the Outlier Boundaries:The 1.5 × IQR rule defines outliers as values lying
+    below Q1 - 1.5 × IQR or above Q3 + 1.5 × IQR.
+    
+     lower_bound = q1 - 1.5 * iqr
+     upper_bound = q3 + 1.5 * iqr
+
+  <br>
+    -Filtering Out Outliers:Removes outliers and saves the cleaned dataset.
+    <br>
+    
+    ```
+    df_clean = df[(df['RATING'] >=lower_bound) & (df['RATING'] <= upper_bound)]
+    df_clean.to_csv("/content/drive/MyDrive/cleaned_movies.csv", index=False)
+    print(" Outliers removed! Cleaned data saved as 'cleaned_movies.csv'.")
