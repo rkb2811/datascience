@@ -1,5 +1,4 @@
-# EXP 1:
-Loading and Merging Datasets in Python
+# EXP 1: Loading and Merging Datasets in Python
 <br>
 What is Dataset Loading?
 <br>
