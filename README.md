@@ -4,7 +4,7 @@ This repository contains the code and results for the first experiment in the Da
 <br>
 <br>
 
-Steps:
+Steps-
 <br>
 Loading Datasets: The datasets are loaded using the Pandas library from the UCI ML Repository.
 <br>
@@ -22,9 +22,8 @@ Pandas Library: Used for data manipulation and analysis.
 DataFrames: Data structures provided by Pandas to store and manipulate tabular data.
 <br>
 Merging Datasets: The pd.merge() function is used to combine two datasets based on a common key.
-
 <br>
-
+<br>
 Step 1: Import necessary library
 <br>
 
