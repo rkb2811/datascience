@@ -17,8 +17,8 @@ By merging these datasets, we can analyze customer behavior.
 Steps:
 <br>
 Loading Datasets: The datasets are loaded using the Pandas library from the UCI ML Repository.
-
-<br>Inspecting Datasets: The first few rows of each dataset are displayed to understand their structure.
+<br>
+Inspecting Datasets: The first few rows of each dataset are displayed to understand their structure.
 <br>
 Merging Datasets: The datasets are merged on a common column (e.g., 'ID').
 <br>
@@ -33,6 +33,7 @@ DataFrames: Data structures provided by Pandas to store and manipulate tabular d
 <br>
 Merging Datasets: The pd.merge() function is used to combine two datasets based on a common key.
 
+<br>
 
 Step 1: Import necessary library
 <br>
