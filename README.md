@@ -13,6 +13,25 @@ One dataset may contain customer details (ID, Name, Age).
 Another dataset may contain purchase history (ID, Items Bought, Amount Spent).
 <br>
 By merging these datasets, we can analyze customer behavior.
+<br>
+Steps:
+<br>
+Loading Datasets: The datasets are loaded using the Pandas library from the UCI ML Repository.
+
+<br>Inspecting Datasets: The first few rows of each dataset are displayed to understand their structure.
+<br>
+Merging Datasets: The datasets are merged on a common column (e.g., 'ID').
+<br>
+Saving the Merged Dataset: The merged dataset is optionally saved as a CSV file.
+
+<br>
+<title>Concepts Used
+Pandas Library: Used for data manipulation and analysis.
+  <br>
+DataFrames: Data structures provided by Pandas to store and manipulate tabular data.
+<br>
+Merging Datasets: The pd.merge() function is used to combine two datasets based on a common key.
+
 
 Step 1: Import necessary library
 <br>
