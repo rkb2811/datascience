@@ -2,13 +2,12 @@
 <br>
 Encoding is an essential step in data preprocessing that converts categorical data into numerical form, making it usable for machine learning models. This repository explains different encoding techniques and how to use them effectively.  
 
----
-
+<br>
  
 ##  Introduction  
 Machine learning models require numerical data for training. However, datasets often contain categorical variables that need to be converted into numbers. This is where **encoding techniques** help.  
 
----
+ 
 
 ##  Types of Encoding  
 
@@ -24,8 +23,7 @@ Machine learning models require numerical data for training. However, datasets o
 5. Binary Encoding.
 <br>
 6. Frequency Encoding.
-
----
+ 
 
 ### 1️ Label Encoding  
 
@@ -40,7 +38,7 @@ encoder= LabelEncoder()
 encoded_data= encoder.fit_transform(data)
 print(f"Label encoded data: {encoded_data}")
 ```
----
+ 
 ### 2. One hot encoding:
  Creates separate columns for each category and marks them as 1 (present) or 0 (not present).
 
@@ -52,7 +50,7 @@ one_hot_encoded=pd.get_dummies(df['Color'])
 print("one hot encoded: \n")
 print(one_hot_encoded)
 ```
----
+ 
 ### 3. Ordinal encoding:
  Assigns numbers to categories based on their order (e.g., Low= 0, Medium = 1, High = 2).
 <br>
@@ -64,7 +62,7 @@ encoder= OrdinalEncoder(categories=[['Low','Medium','High']])
 encoded_data=encoder.fit_transform(data)
 print(f"Ordinal Encoded Data: {encoded_data}")
 ```
----
+ 
 ### 4. Target encoding:
 Replaces categories with the average value of the target variable for that category.
 <br>
@@ -80,7 +78,7 @@ encoder= ce.TargetEncoder(cols=['Color'])
 encoded_data= encoder.fit_transform(df['Color'],df['Target'])
 print(f"Target encoded: {encoded_data}")
 ```
----
+ 
 ### 5. Binary encoding:
  Converts category values into binary (0s and 1s) and stores them in multiple columns.
 <br>
@@ -93,7 +91,7 @@ encoded_data= encoder.fit_transform(pd.DataFrame(data,columns=['Color']))
 print("binary encoded: \n")
 print(encoded_data)
 ```
----
+ 
 ### 6. Frequency encoding:
 Replaces categories with how often they appear in the dataset.
 <br>
