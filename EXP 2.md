@@ -22,9 +22,10 @@ Data Cleaning: Techniques such as removing duplicates, handling missing values, 
 ## Steps to Reproduce: 
 
 ### 1.Import necessary library
-<br>
+
 Pandas is a powerful Python library for data manipulation, analysis, and processing using DataFrames and Series.
 <br>
+
 
 ```
 import pandas as pd
@@ -32,7 +33,8 @@ import pandas as pd
 
 ### 2.Load the Datasets
 <br>
-- Here,I,ve used the wine dataset
+
+- Here,I've used the wine dataset
 <br>
 
 ```
@@ -42,8 +44,10 @@ df2= pd.read_csv('/content/drive/MyDrive/winequality-white.csv',delimiter=';')
 
 ### 3.Check for Null values/ Missing values
 <br>
-We can inspect for null values in 2 ways(using 2 functions) i.e. 
+
+- We can inspect for null values in 2 ways(using 2 functions) i.e. 
 <br>
+
 a)Isnull() 
 <br>
 
@@ -62,45 +66,53 @@ df1.notnull()
 ```
 ### 4.Handling NAN values
 <br>
--NAN stands for Not A Numeric Value i.e this will check for any value which is not a number/ a numeric value. 
+NAN stands for Not A Numeric Value i.e this will check for any value which is not a number/ a numeric value.
+
 <br>
+<br>
+
 - There are two popular functions to handle NAN values i.e.,
    <br>
    <br>
+
    
-   -dropna():Removes missing (NaN) values from a DataFrame or Series.
+   - dropna():Removes missing (NaN) values from a DataFrame or Series.
   <br>
+  
   ```
     df.dropna(inplace=True)
   ```
-  -fillna():Replaces missing values with a specified value.
+  <br>
+  
+  - fillna():Replaces missing values with a specified value.
   ```
   df.fillna(130,inplace=True)
   ```
 
-### 5.Check for duplicated values in the dataset
+### 5.Handle Duplicate Rows:
 <br>
 
-       print("checking for duplicated values: ")
-     df1.duplicated()
-<br>
-We can either just check for the duplicates or even drop them. 
-<br>
-To drop duplicates, we use the drop_duplicates() function.
-<br>
+- Identify and remove duplicate rows.
 
 ```
-print("after dropping duplicated values: ")
-df.drop_duplicates()
+df.duplicated()
+df.drop_duplicates(inplace=True)
+df.duplicated()
 ```
+
+
 ### 6. Handling Outliers using IQR method
 <br>
--The Interquartile Range (IQR) method is a statistical approach used to identify and remove extreme values from a dataset.
+
+- The Interquartile Range (IQR) method is a statistical approach used to identify and remove extreme values from a dataset.
 <br>
-    Sub-steps in this Step are-
+<br>
+
+ -  The Sub-steps to handle outliers using IQR are-
     <br>
     <br>
-    1. Stripping Extra Spaces from Column Names:Removes extra spaces to avoid referencing issues.
+    
+1. Stripping Extra Spaces from Column Names:Removes extra spaces to avoid referencing issues.
     <br>
     
 ```
@@ -115,14 +127,11 @@ print("Column Names:", df.columns)
       q1 = df['RATING'].quantile(0.25)
       q3 = df['RATING'].quantile(0.75)
       iqr = q3 - q1
-<br>
 Where,
-<br>
-Q1 (25th percentile): The value below which 25% of the data falls.
-<br>
-Q3 (75th percentile): The value below which 75% of the data falls.
-<br>
-IQR: The range between Q1 and Q3, representing the middle 50% of the data.
+   <br>
+    Q1 (25th percentile): The value below which 25% of the data falls.<br>
+    Q3 (75th percentile): The value below which 75% of the data falls.<br>
+    IQR: The range between Q1 and Q3, representing the middle 50% of the data.<br>
    <br>
    <br>
     3. Defining the Outlier Boundaries:The 1.5 × IQR rule defines outliers as values lying
