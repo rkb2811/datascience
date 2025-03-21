@@ -17,34 +17,61 @@ In this project, **Logistic Regression** is used as the base model for RFE to de
 
 # Code  
 ```
-# Import necessary libraries
 import pandas as pd
-from sklearn.feature_selection import RFE
-from sklearn.linear_model import LogisticRegression
+import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.feature_selection import RFE, SequentialFeatureSelector
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
 
-# Load dataset
-df = pd.read_csv('/content/drive/MyDrive/Datasets/winequality-red.csv', delimiter=';')
+# Load dataset from UCI repository
+url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv"
 
-# Separate features and target variable
-X = df.drop(columns=['quality'])
-y = df['quality']
+# Define column names
+columns = [
+    "Pregnancies", "Glucose", "BloodPressure", "SkinThickness", "Insulin", 
+    "BMI", "DiabetesPedigreeFunction", "Age", "Outcome"
+]
 
-# Scale features (important for Logistic Regression)
-scaler = StandardScaler() #Why scale? Logistic Regression works better when data is standardized.
-X_scaled = scaler.fit_transform(X)
+# Read the dataset
+df = pd.read_csv(url, names=columns)
 
-# Split data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+# Define features (X) and target (y)
+X = df.drop(columns=["Outcome"])
+y = df["Outcome"]
 
-# Initialize logistic regression model with increased iterations
-model = LogisticRegression(max_iter=5000, solver='lbfgs')
+# Split data into training and testing sets (80%-20%)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Apply RFE (Recursive Feature Elimination) to select top 5 features
+# 1️⃣ **Recursive Feature Elimination (RFE)**
+model = RandomForestClassifier(n_estimators=100, random_state=42)
 rfe = RFE(estimator=model, n_features_to_select=5)
-X_selected = rfe.fit_transform(X_train, y_train)
+rfe.fit(X_train, y_train)
 
-# Get selected feature names
-selected_features = X.columns[rfe.support_]
-print("Selected Features using RFE:", selected_features.tolist())
+# Get selected features
+selected_features_rfe = X.columns[rfe.support_]
+print("\nSelected Features (RFE):", list(selected_features_rfe))
+
+# Train & evaluate model with selected features
+X_train_rfe = rfe.transform(X_train)
+X_test_rfe = rfe.transform(X_test)
+model.fit(X_train_rfe, y_train)
+y_pred_rfe = model.predict(X_test_rfe)
+print("RFE Accuracy:", accuracy_score(y_test, y_pred_rfe))
+
+# 2️⃣ **Sequential Feature Selection (Forward)**
+sfs_forward = SequentialFeatureSelector(model, n_features_to_select=5, direction="forward")
+sfs_forward.fit(X_train, y_train)
+selected_features_sfs_fwd = X.columns[sfs_forward.get_support()]
+print("\nSelected Features (Forward SFS):", list(selected_features_sfs_fwd))
+
+# 3️⃣ **Sequential Feature Selection (Backward)**
+sfs_backward = SequentialFeatureSelector(model, n_features_to_select=5, direction="backward")
+sfs_backward.fit(X_train, y_train)
+selected_features_sfs_bwd = X.columns[sfs_backward.get_support()]
+print("\nSelected Features (Backward SFS):", list(selected_features_sfs_bwd))
+```
+### Output:
+Selected Features (RFE): ['Glucose', 'BloodPressure', 'BMI', 'DiabetesPedigreeFunction', 'Age']
+RFE Accuracy: 0.7727272727272727
