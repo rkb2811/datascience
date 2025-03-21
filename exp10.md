@@ -11,35 +11,31 @@ To run this project, ensure you have Python installed along with the required de
 
 ## code
 ```
-### Import necessary libraries <br>
-import pandas as pd <br>
-from sklearn.feature_selection import RFECV <br>
-from sklearn.linear_model import LogisticRegression <br>
-from sklearn.model_selection import train_test_split <br>
-from sklearn.preprocessing import StandardScaler <br>
+import pandas as pd
+from sklearn.feature_selection import RFECV
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
-### Load dataset <br>
-df = pd.read_csv('/content/drive/MyDrive/Datasets/winequality-red.csv', delimiter=';') <br>
+# Load dataset
+df = pd.read_csv('/content/drive/MyDrive/Datasets/winequality-red.csv', delimiter=';')
 
-### Separate features and target variable <br>
-X = df.drop(columns=['quality']) <br>
-y = df['quality'] <br>
+# Prepare data
+X = df.drop(columns=['quality'])
+y = df['quality']
 
-### Standardize the data to improve model performance <br>
-scaler = StandardScaler() <br>
-X_scaled = scaler.fit_transform(X) <br>
+# Scale data
+X = StandardScaler().fit_transform(X)
 
-### Split data into training and testing sets <br>
-X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42) <br>
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-### Initialize logistic regression model <br>
-model = LogisticRegression(max_iter=2000) <br>
+# Apply RFECV
+model = LogisticRegression(max_iter=2000)
+rfecv = RFECV(estimator=model, cv=3, scoring='accuracy')
+rfecv.fit(X_train, y_train)
 
-### Apply RFECV (Recursive Feature Elimination with Cross-Validation) <br>
-rfecv = RFECV(estimator=model, step=1, cv=5) <br>
-rfecv.fit(X_train, y_train) <br>
-
-### Get selected feature names <br>
-selected_features = X.columns[rfecv.support_] <br>
-print("Optimal number of features:", rfecv.n_features_) <br>
-print("Selected Features using RFECV:", selected_features.tolist()) <br>
+# Display results
+selected_features = df.drop(columns=['quality']).columns[rfecv.support_]
+print("Optimal number of features:", rfecv.n_features_)
+print("Selected Features:", selected_features.tolist())
