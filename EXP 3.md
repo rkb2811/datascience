@@ -98,12 +98,23 @@ Replaces categories with how often they appear in the dataset.
 
 ```
 import pandas as pd
-data=['Red','Green','Blue','Red','Red']
-series_data= pd.Series(data)
-frequency_encoding= series_data.value_counts()
-encoded_data= [frequency_encoding[x] for x in data]
-print("frequency encoded: \n")
-print("encoded data: ",encoded_data)
+
+# Define the categorical data
+data = ['Red', 'Green', 'Blue', 'Red', 'Red']
+
+# Convert to Pandas Series
+series_data = pd.Series(data)
+
+# Compute frequency of each unique value
+frequency_encoding = series_data.value_counts()
+
+# Convert np.int64 to Python int using int()
+encoded_data = [int(frequency_encoding[x]) for x in data]
+
+# Display results
+print("Frequency Encoded Data:\n", encoded_data)
+
+
 ```
 
 
