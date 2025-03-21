@@ -22,50 +22,57 @@ petal_length	= Petal length in cm
 </br>
 petal_width =	Petal width in cm
 ## code for Advanced Visualizations
+
 ```
-### import data
 import pandas as pd
-</br>
 import matplotlib.pyplot as plt
-</br>
 import seaborn as sns
 
-### Load the dataset
-df = pd.read_csv('/content/drive/MyDrive/iris.data', header=None)
-</br>
-df.columns = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
+# Load the dataset from UCI repository
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
 
-### Scatter plot - Sepal Length vs Sepal Width
-plt.figure(figsize=(8, 6))
-</br>
-sns.scatterplot(x=df['sepal_length'], y=df['sepal_width'], hue=df['species'])
-</br>
-plt.title("Scatter Plot: Sepal Length vs Sepal Width")
-</br>
+# Define column names
+columns = ["Sepal Length", "Sepal Width", "Petal Length", "Petal Width", "Species"]
+
+# Read the dataset
+df = pd.read_csv(url, names=columns)
+
+# Display first few rows
+print(df.head())
+
+# Create a scatter plot for Sepal Length vs Sepal Width
+plt.figure(figsize=(8, 5))
+sns.scatterplot(x=df["Sepal Length"], y=df["Sepal Width"], hue=df["Species"], palette="coolwarm")
+plt.title("Sepal Length vs Sepal Width")
 plt.xlabel("Sepal Length (cm)")
-</br>
 plt.ylabel("Sepal Width (cm)")
-</br>
+plt.legend(title="Species")
 plt.show()
 
-### Bar plot - Average Sepal Width per Species
-plt.figure(figsize=(8, 6))
-</br>
-sns.barplot(x=df['species'], y=df['sepal_width'], palette="viridis")
-</br>
-plt.title("Average Sepal Width per Species")
-</br>
+# Create a histogram for Petal Length
+plt.figure(figsize=(8, 5))
+sns.histplot(df["Petal Length"], bins=20, kde=True, color="purple")
+plt.title("Distribution of Petal Length")
+plt.xlabel("Petal Length (cm)")
+plt.ylabel("Count")
+plt.show()
+
+# Create a boxplot for Sepal Width
+plt.figure(figsize=(8, 5))
+sns.boxplot(x=df["Species"], y=df["Sepal Width"], palette="Set2")
+plt.title("Boxplot of Sepal Width by Species")
 plt.xlabel("Species")
-</br>
-plt.ylabel("Average Sepal Width (cm)")
-</br>
+plt.ylabel("Sepal Width (cm)")
 plt.show()
-
-### Heatmap - Correlation between features
-plt.figure(figsize=(8, 6))
-</br>
-sns.heatmap(df.drop(columns=['species']).corr(), annot=True, cmap="coolwarm", linewidths=0.5)
-</br>
-plt.title("Feature Correlation Heatmap")
-</br>
-plt.show()
+```
+### Output:
+```
+Sepal Length  Sepal Width  Petal Length  Petal Width      Species
+0           5.1          3.5           1.4          0.2  Iris-setosa
+1           4.9          3.0           1.4          0.2  Iris-setosa
+2           4.7          3.2           1.3          0.2  Iris-setosa
+3           4.6          3.1           1.5          0.2  Iris-setosa
+4           5.0          3.6           1.4          0.2  Iris-setosa
+```
+![download (5)](https://github.com/user-attachments/assets/26204a3c-a667-4150-9a47-486dfe019b45)
+![download (6)](https://github.com/user-attachments/assets/acbc78a4-933b-4ae0-a422-fd2257ff68c8)
