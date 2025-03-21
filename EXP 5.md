@@ -128,6 +128,7 @@ plt.ylabel('Sepal Width')
 plt.title('Scatter Plot of Sepal Length vs Sepal Width')
 plt.grid(True)
 plt.show()
+
 # correlation heatmap
 corr_matrix = df.corr(numeric_only=True)
 # Plot heatmap
