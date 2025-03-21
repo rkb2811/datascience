@@ -75,3 +75,7 @@ print("\nSelected Features (Backward SFS):", list(selected_features_sfs_bwd))
 ### Output:
 Selected Features (RFE): ['Glucose', 'BloodPressure', 'BMI', 'DiabetesPedigreeFunction', 'Age']
 RFE Accuracy: 0.7727272727272727
+
+Selected Features (Forward SFS): ['Pregnancies', 'Glucose', 'Insulin', 'BMI', 'DiabetesPedigreeFunction']
+
+Selected Features (Backward SFS): ['Glucose', 'BloodPressure', 'Insulin', 'BMI', 'Age']
