@@ -78,7 +78,6 @@ csv_files = [
 ### Step 2: Parameters
 ```
 chunk_size = 100000 
-![Screenshot 2025-04-28 105643](https://github.com/user-attachments/assets/54d3cd53-a257-41b6-af96-47c90ca0f7e2)
 
 data_chunks = []
 ```
